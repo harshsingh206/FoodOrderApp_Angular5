@@ -1,0 +1,83 @@
+<div style="background-color:white; height:50px;text-align:center">
+    <span>
+          Best Food App 
+    </span>
+    <span style="float:right">
+            <a href="" class="cart-button" ng-focus="showCart=true" ng-blur="vm.blurCart($event)" style="color: #3cb9e3;">
+                <img *ngIf="cartNumber === 0" class="align-center" src="./assets/images/cart-icon.png" width="35px" height="35px">
+                <img *ngIf="cartNumber > 0" src="./assets/images/cart-blue.png" width="25px" height="25px">
+                <span *ngIf="cartNumber > 0" class="badge cart-badge">{{cartNumber}}</span>
+            </a>
+     </span>
+</div>
+<br><br>
+<div class=" sorting scrollmenu" style="margin-bottom:50px">
+        <div class="" *ngFor='let product of filteredGames; let i = index'>
+           <div *ngIf="product.isFavourite">
+               <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
+                   <a>
+                        <mat-card>
+                                <img src={{product.image}} height="200px" width="200px">                     
+                                <br>  
+                                <span style="text-align:left"><b>{{product.name}}</b> 
+                                    <br>
+                                <b>&#8377;{{product.price}}</b>
+                            </span>
+                                <span *ngIf="product.quantity === 0" style="float:right"><button mat-flat-button color="primary" (click)='onIncrease(i)'>REORDER</button></span>
+                                <span *ngIf="product.quantity > 0" style="float:right">
+                                        <button class="quantity-button" (click)='onDecrease(i)' [disabled]="product.quantity < 1">-</button> &nbsp;&nbsp;{{ product.quantity }}&nbsp;&nbsp;
+                                        <button class="quantity-button plus-btn" (click)='onIncrease(i)' [disabled]="product.quantity > 98" >+</button>
+                                </span>
+                        </mat-card>
+                   </a>
+               </div>
+           </div>
+        </div>
+    
+    </div>
+    <br/>
+
+<div>
+     <mat-form-field>
+        <input matInput placeholder="Search for a particular dish" [(ngModel)]="listFilter" >
+    </mat-form-field>
+</div>
+
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 sorting scrollmenu" >
+    <div class="" *ngFor='let product of category ; let i = index'>
+           <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
+               <a (click)="searchCategory(product.name)">
+                    <mat-card>
+                            <img src={{product.image}} height="25px" width="25px">{{product.name}}
+                    </mat-card>
+               </a>
+            </div>
+    </div>
+</div>
+<br/>
+<div *ngFor='let product of filteredGames; let i = index'>
+    <div>
+    <mat-card class="col-lg-3 col-md-3 col-xs-10 col-sm-10 card" >
+      <div>
+        <img src={{product.image}} height="100%" width="100%">
+     </div>
+     <div class="row">
+        <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12" style="margin-top:10px;">
+            <div class="col-lg-6 col-md-6 col-xs-6 col-sm-6">
+                <span class="label"></span>
+                <b>{{product.name}}</b> <br>
+                <b>&#8377;{{product.price}}</b>
+            </div>
+            <div class="col-lg-6 col-md-6 col-xs-6 col-sm-6" style="text-align:right">
+                <span *ngIf="product.quantity === 0"><button mat-flat-button color="primary" (click)='onIncrease(i)'>ADD TO BAG</button></span>
+                <span *ngIf="product.quantity > 0">
+                        <button class="quantity-button" (click)='onDecrease(i)' [disabled]="product.quantity < 1">-</button> &nbsp;&nbsp;{{ product.quantity }}&nbsp;&nbsp;
+                        <button class="quantity-button plus-btn" (click)='onIncrease(i)' [disabled]="product.quantity > 98" >+</button>
+                </span>  
+            </div>
+        </div>
+    </div>
+    </mat-card>
+    </div>
+</div>
+
